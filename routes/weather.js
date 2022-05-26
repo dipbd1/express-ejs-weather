@@ -9,7 +9,7 @@ const axios = require("axios").default
 router.get("/", async function (req, res, next) {
   // console.log(process.env.API_KEY)
   let count = 40
-  let cityName = "London"
+  let cityName = req.query.cityname || "Dhaka"
   let apiLink =
     "http://api.openweathermap.org/data/2.5/forecast?q=" +
     cityName +
@@ -33,7 +33,10 @@ router.get("/", async function (req, res, next) {
     })
     .catch(function (error) {
       // console.log("error occured")
-      console.log(error)
+      // console.log(error)
+      // handle error
+
+      res.send(error.response.data)
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
